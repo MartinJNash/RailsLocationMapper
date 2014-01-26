@@ -20,5 +20,15 @@
   <%= @location.blurb %>
 </p>
 
+<p>
+  <strong>Map:</strong>
+  <%= link_to "Google Maps", @location.google_maps_url, target: "_blank" %>
+</p>
+
+<p>
+
+  <%= image_tag @location.google_maps_static_image_url %>
+</p>
+
 <%= link_to 'Edit', edit_location_path(@location) %> |
 <%= link_to 'Back', locations_path %>
