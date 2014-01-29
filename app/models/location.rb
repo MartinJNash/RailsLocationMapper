@@ -5,24 +5,27 @@ class Location < ActiveRecord::Base
   validate :valid_longitude?
   validate :valid_latitude?
 
+  MAXLONG = 180
+  MAXLATT = 90
+
   def valid_longitude?
-    if longitude.abs > 90
-      errors.add :longitude, "should be between -90 and 90"
+    if longitude.abs > MAXLONG
+      errors.add :longitude, "should be between -#{MAXLONG} and #{MAXLATT}"
     end
   end
 
   def valid_latitude?
-    if latitude.abs > 90
-      errors.add :latitude, "should be between -90 and 90"
+    if latitude.abs > MAXLATT
+      errors.add :latitude, "should be between -#{MAXLATT} and #{MAXLATT}"
     end
   end
 
   def google_maps_url(zoom = 5)
-    "http://maps.google.com/?q=#{longitude},#{latitude}&z=#{zoom}"
+    "http://maps.google.com/?q=#{latitude},#{longitude}&z=#{zoom}"
   end
 
   def google_maps_static_image_url(zoom=5)
-    "http://maps.googleapis.com/maps/api/staticmap?center=#{longitude},#{latitude}&zoom=#{zoom}&size=600x300&maptype=roadmap&sensor=false"
+    "http://maps.googleapis.com/maps/api/staticmap?center=#{latitude},#{longitude}&zoom=#{zoom}&size=600x300&maptype=roadmap&sensor=false"
   end
 
 end
